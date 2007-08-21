@@ -1,9 +1,7 @@
 <ui version="4.0" >
  <author>Heiko Schaefer</author>
- <comment></comment>
- <exportmacro></exportmacro>
- <class>SMPPPDCSPrefsBase</class>
- <widget class="QWidget" name="SMPPPDCSPrefsBase" >
+ <class>SMPPPDCSPrefsUI</class>
+ <widget class="QWidget" name="SMPPPDCSPrefsUI" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -16,24 +14,45 @@
    <string>SMPPPDCS Preferences</string>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>9</number>
-   </property>
    <property name="spacing" >
     <number>6</number>
    </property>
+   <property name="leftMargin" >
+    <number>9</number>
+   </property>
+   <property name="topMargin" >
+    <number>9</number>
+   </property>
+   <property name="rightMargin" >
+    <number>9</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>9</number>
+   </property>
    <item>
     <widget class="QTabWidget" name="tabWidget" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
        <string>&amp;Connection</string>
       </attribute>
       <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>9</number>
-       </property>
        <property name="spacing" >
         <number>6</number>
+       </property>
+       <property name="leftMargin" >
+        <number>9</number>
+       </property>
+       <property name="topMargin" >
+        <number>9</number>
+       </property>
+       <property name="rightMargin" >
+        <number>9</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>9</number>
        </property>
        <item>
         <widget class="QGroupBox" name="csMethod" >
@@ -41,11 +60,20 @@
           <string>Method of Connection Status Detection</string>
          </property>
          <layout class="QVBoxLayout" >
-          <property name="margin" >
-           <number>9</number>
-          </property>
           <property name="spacing" >
            <number>6</number>
+          </property>
+          <property name="leftMargin" >
+           <number>9</number>
+          </property>
+          <property name="topMargin" >
+           <number>9</number>
+          </property>
+          <property name="rightMargin" >
+           <number>9</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>9</number>
           </property>
           <item>
            <widget class="QRadioButton" name="useNetstat" >
@@ -72,11 +100,20 @@
           </item>
           <item>
            <layout class="QHBoxLayout" >
-            <property name="margin" >
-             <number>0</number>
-            </property>
             <property name="spacing" >
              <number>6</number>
+            </property>
+            <property name="leftMargin" >
+             <number>0</number>
+            </property>
+            <property name="topMargin" >
+             <number>0</number>
+            </property>
+            <property name="rightMargin" >
+             <number>0</number>
+            </property>
+            <property name="bottomMargin" >
+             <number>0</number>
             </property>
             <item>
              <spacer>
@@ -128,14 +165,23 @@
           <string>Location of the SMPPPD</string>
          </property>
          <layout class="QHBoxLayout" >
-          <property name="margin" >
-           <number>9</number>
-          </property>
           <property name="spacing" >
            <number>6</number>
           </property>
+          <property name="leftMargin" >
+           <number>9</number>
+          </property>
+          <property name="topMargin" >
+           <number>9</number>
+          </property>
+          <property name="rightMargin" >
+           <number>9</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>9</number>
+          </property>
           <item>
-           <widget class="SMPPPDLocationWidget" name="SMPPPDLocation" />
+           <widget class="SMPPPDLocationWidget" native="1" name="SMPPPDLocation" />
           </item>
          </layout>
         </widget>
@@ -163,11 +209,20 @@
        <string>Acco&amp;unts</string>
       </attribute>
       <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>0</number>
-       </property>
        <property name="spacing" >
         <number>6</number>
+       </property>
+       <property name="leftMargin" >
+        <number>0</number>
+       </property>
+       <property name="topMargin" >
+        <number>0</number>
+       </property>
+       <property name="rightMargin" >
+        <number>0</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>0</number>
        </property>
        <item>
         <spacer>
@@ -193,19 +248,7 @@
         </widget>
        </item>
        <item>
-        <widget class="K3ListView" name="accountList" >
-         <property name="allColumnsShowFocus" >
-          <bool>true</bool>
-         </property>
-         <property name="resizeMode" >
-          <enum>Q3ListView::LastColumn</enum>
-         </property>
-         <column>
-          <property name="text" >
-           <string>Account</string>
-          </property>
-         </column>
-        </widget>
+        <widget class="KListWidget" name="accountList" />
        </item>
       </layout>
      </widget>
@@ -214,28 +257,22 @@
   </layout>
  </widget>
  <layoutdefault spacing="0" margin="0" />
- <pixmapfunction></pixmapfunction>
  <customwidgets>
   <customwidget>
+   <class>KListWidget</class>
+   <extends>QListWidget</extends>
+   <header>klistwidget.h</header>
+  </customwidget>
+  <customwidget>
    <class>KPushButton</class>
-   <extends></extends>
+   <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
   </customwidget>
   <customwidget>
    <class>SMPPPDLocationWidget</class>
    <extends></extends>
    <header>smpppdlocationwidget.h</header>
    <container>1</container>
-   <pixmap></pixmap>
-  </customwidget>
-  <customwidget>
-   <class>K3ListView</class>
-   <extends></extends>
-   <header>k3listview.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -243,7 +280,6 @@
   <tabstop>useNetstat</tabstop>
   <tabstop>autoCSTest</tabstop>
   <tabstop>useSmpppd</tabstop>
-  <tabstop>accountList</tabstop>
  </tabstops>
  <resources/>
  <connections/>

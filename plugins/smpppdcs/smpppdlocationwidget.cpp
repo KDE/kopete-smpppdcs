@@ -18,13 +18,17 @@
 
 #include "smpppdlocationwidget.h"
 
-SMPPPDLocationWidget::SMPPPDLocationWidget(QWidget* parent, const char* name, WFlags fl)
- : QWidget(parent, name, fl) {}
+SMPPPDLocationWidget::SMPPPDLocationWidget ( QWidget* parent, const char* name, Qt::WindowFlags fl )
+		: QWidget ( parent, name, fl )
+{
+	
+}
 
 SMPPPDLocationWidget::~SMPPPDLocationWidget() {}
 
-void SMPPPDLocationWidget::setServer(const QString& serv) {
-    server->setText(serv);
+void SMPPPDLocationWidget::setServer ( const QString& serv )
+{
+	server->setText ( serv );
 }
 
 #include "smpppdlocationwidget.moc"

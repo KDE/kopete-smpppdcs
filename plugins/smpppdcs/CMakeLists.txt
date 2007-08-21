@@ -3,7 +3,9 @@ add_subdirectory( icons )
 add_subdirectory( libsmpppdclient ) 
 add_subdirectory( unittest ) 
 
-
+include_directories( 
+${KOPETE_INCLUDES}
+)
 
 
 ########### next target ###############
@@ -14,9 +16,11 @@ set(kopete_smpppdcs_PART_SRCS
    detectordcop.cpp 
    detectorsmpppd.cpp 
    detectornetstat.cpp 
-   detectornetworkstatus.cpp )
+   detectornetworkstatus.cpp 
+   smpppdcsiface.h
+   kinternetiface.h )
 
-message(FATAL_ERROR "DCOP stuff was removed in kde4, convert it to dbus please")
+#message(FATAL_ERROR "DCOP stuff was removed in kde4, convert it to dbus please")
 
 #kde4_add_dcop_skels(kopete_smpppdcs_PART_SRCS smpppdcsiface.h )
 

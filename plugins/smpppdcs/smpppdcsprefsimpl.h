@@ -19,7 +19,7 @@
 
 #include <qgroupbox.h>
 
-#include <kprogress.h>
+#include <kprogressdialog.h>
 
 #include "ui_smpppdcsprefs.h"
 
@@ -29,7 +29,7 @@ class SMPPPDSearcher;
 /**
 @author Heiko Sch&auml;fer <heiko@rangun.de>
 */
-class SMPPPDCSPrefs : public SMPPPDCSPrefsBase 
+class SMPPPDCSPrefs : public Ui::SMPPPDCSPrefsUI 
 {
     Q_OBJECT
 
@@ -37,7 +37,7 @@ class SMPPPDCSPrefs : public SMPPPDCSPrefsBase
 public:
 
     explicit SMPPPDCSPrefs(QWidget* parent = 0, Qt::WindowFlags f = 0);
-    ~SMPPPDCSPrefs();
+    virtual ~SMPPPDCSPrefs();
 
 signals:
 	void foundSMPPPD(bool found);

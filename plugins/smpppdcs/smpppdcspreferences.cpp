@@ -17,6 +17,7 @@
 #include <qlayout.h>
 #include <qregexp.h>
 #include <qradiobutton.h>
+#include <QListWidgetItem>
 
 #include <k3listview.h>
 #include <klineedit.h>
@@ -35,50 +36,50 @@
 typedef KGenericFactory<SMPPPDCSPreferences> SMPPPDCSPreferencesFactory;
 K_EXPORT_COMPONENT_FACTORY(kcm_kopete_smpppdcs, SMPPPDCSPreferencesFactory("kcm_kopete_smpppdcs"))
 
-SMPPPDCSPreferences::SMPPPDCSPreferences(QWidget * parent, const char * /* name */, const QStringList& args)
+SMPPPDCSPreferences::SMPPPDCSPreferences(QWidget * parent, const QStringList& args)
  : KCModule(SMPPPDCSPreferencesFactory::componentData(), parent, args), m_ui(NULL) {
 
  	Kopete::AccountManager * manager = Kopete::AccountManager::self(); 
 
 	QVBoxLayout* l = new QVBoxLayout(this);
 	QWidget* w = new QWidget;
-	m_ui = new Ui::SMPPPDCSPrefs;
+	m_ui = new Ui::SMPPPDCSPrefsUI;
 	m_ui->setupUi(w);
 	l->addWidget(w);
 
-	for(QPtrListIterator<Kopete::Account> it(manager->accounts()); it.current(); ++it)
+	foreach (Kopete::Account* it, manager->accounts())
 	{
 		QString protoName;
 		QRegExp rex("(.*)Protocol");
 		
-		if(rex.search((*it)->protocol()->pluginId()) > -1) {
+		if(rex.search(it->protocol()->pluginId()) > -1) {
 			protoName = rex.cap(1);
 		} else {
-			protoName = (*it)->protocol()->pluginId();
+			protoName = it->protocol()->pluginId();
 		}
 		
-		if(it.current()->inherits("Kopete::ManagedConnectionAccount")) {
+		if(it->inherits("Kopete::ManagedConnectionAccount")) {
 			protoName += QString(", %1").arg(i18n("connection status is managed by Kopete"));
 		}
 		
-		QCheckListItem * cli = new QCheckListItem(m_ui->accountList, 
-				(*it)->accountId() + " (" + protoName + ')', QCheckListItem::CheckBox);
-		cli->setPixmap(0, (*it)->accountIcon());
+		QListWidgetItem * item = new QListWidgetItem( it->accountId() + " (" + protoName + ')', m_ui->accountList);
+		item->setIcon ( QIcon(it->accountIcon()));
+		item->setCheckState (Qt::Unchecked);
+		connect ( m_ui->accountList, SIGNAL(itemChanged()), this, SLOT(slotModified()));
 		
-		m_accountMapOld[cli->text(0)] = AccountPrivMap(false, (*it)->protocol()->pluginId() + '_' + (*it)->accountId());
-		m_accountMapCur[cli->text(0)] = AccountPrivMap(false, (*it)->protocol()->pluginId() + '_' + (*it)->accountId());;
-		m_ui->accountList->insertItem(cli);
+		m_accountMapOld[item->text()] = AccountPrivMap(false, it->protocol()->pluginId() + '_' + it->accountId());
+		m_accountMapCur[item->text()] = AccountPrivMap(false, it->protocol()->pluginId() + '_' + it->accountId());;
+		m_ui->accountList->addItem(item);
 	}
 
-	connect(m_ui->accountList, SIGNAL(clicked(QListViewItem *)), this, SLOT(listClicked(QListViewItem *)));
-	
+//	connect(m_ui->accountList, SIGNAL(clicked(QListWidgetItem *)), this, SLOT(listClicked(QListWidgetItem *)));
 	// connect for modified
 	connect(m_ui->useNetstat, SIGNAL(clicked()), this, SLOT(slotModified()));
 	connect(m_ui->useSmpppd,  SIGNAL(clicked()), this, SLOT(slotModified()));
 	
 	connect(m_ui->SMPPPDLocation->server,   SIGNAL(textChanged(const QString&)), this, SLOT(slotModified()));
 	connect(m_ui->SMPPPDLocation->port,     SIGNAL(valueChanged(int)), this, SLOT(slotModified()));
-	connect(m_ui->SMPPPDLocation->Password, SIGNAL(textChanged(const QString&)), this, SLOT(slotModified()));
+	connect(m_ui->SMPPPDLocation->password, SIGNAL(textChanged(const QString&)), this, SLOT(slotModified()));
 	
 	load();
 }
@@ -86,12 +87,10 @@ SMPPPDCSPreferences::SMPPPDCSPreferences(QWidget * parent, const char * /* name 
 SMPPPDCSPreferences::~SMPPPDCSPreferences() {
 	delete m_ui;
 }
-
-void SMPPPDCSPreferences::listClicked(QListViewItem * item)
+/*
+void SMPPPDCSPreferences::listClicked(QListWidgetItem * item)
 {
-	QCheckListItem * cli = dynamic_cast<QCheckListItem *>(item);
-	
-	if(cli->isOn() != m_accountMapCur[cli->text(0)].m_on) {
+	if(item->checkState() != m_accountMapCur[item->text(0)].m_on) {
 		AccountMap::iterator itOld = m_accountMapOld.begin();
 		AccountMap::iterator itCur;
 		bool change = false;
@@ -106,16 +105,11 @@ void SMPPPDCSPreferences::listClicked(QListViewItem * item)
 	}
 	m_accountMapCur[cli->text(0)].m_on = cli->isOn();
 }
-
+*/
 void SMPPPDCSPreferences::defaults()
 {
-	QListViewItemIterator it(m_ui->accountList);
-	while(it.current()) {
-		QCheckListItem * cli = dynamic_cast<QCheckListItem *>(it.current());
-		cli->setOn(false);
-		++it;
-	}
-	
+	for ( int i = 0; i < m_ui->accountList->count(); i++ )
+		m_ui->accountList->item(i)->setCheckState (Qt::Unchecked);
 	SMPPPDCSConfig::self()->setDefaults();
 	
 	m_ui->useNetstat->setChecked(SMPPPDCSConfig::self()->useNetstat());
@@ -123,7 +117,7 @@ void SMPPPDCSPreferences::defaults()
 	
 	m_ui->SMPPPDLocation->server->setText(SMPPPDCSConfig::self()->server());
 	m_ui->SMPPPDLocation->port->setValue(SMPPPDCSConfig::self()->port());
-	m_ui->SMPPPDLocation->Password->setText(SMPPPDCSConfig::self()->password());
+	m_ui->SMPPPDLocation->password->setText(SMPPPDCSConfig::self()->password());
 }
 
 void SMPPPDCSPreferences::load()
@@ -134,16 +128,14 @@ void SMPPPDCSPreferences::load()
 	static QString rexStr = "^(.*) \\((.*)\\)";
 	QRegExp rex(rexStr);
 	QStringList list = SMPPPDCSConfig::self()->ignoredAccounts();
-	QListViewItemIterator it(m_ui->accountList);
-	while(it.current()) {
-		QCheckListItem * cli = dynamic_cast<QCheckListItem *>(it.current());
-		if(rex.search(cli->text(0)) > -1) {
+	for ( int i = 0; i < m_ui->accountList->count(); i++ )
+	{
+		QListWidgetItem * item = m_ui->accountList->item(i);
+		if(rex.search(item->text()) > -1) {
 			bool isOn = list.contains(rex.cap(2) + "Protocol_" + rex.cap(1));
-			// m_accountMapOld[cli->text(0)].m_on = isOn;
-			m_accountMapCur[cli->text(0)].m_on = isOn;
-			cli->setOn(isOn);
+			if (isOn)
+				item->setCheckState (Qt::Checked);
 		}
-		++it;
 	}
 	
 	m_ui->useNetstat->setChecked(SMPPPDCSConfig::self()->useNetstat());
@@ -151,7 +143,7 @@ void SMPPPDCSPreferences::load()
 	
 	m_ui->SMPPPDLocation->server->setText(SMPPPDCSConfig::self()->server());
 	m_ui->SMPPPDLocation->port->setValue(SMPPPDCSConfig::self()->port());
-	m_ui->SMPPPDLocation->Password->setText(SMPPPDCSConfig::self()->password());
+	m_ui->SMPPPDLocation->password->setText(SMPPPDCSConfig::self()->password());
 	
 	emit KCModule::changed(false);
 }
@@ -159,15 +151,17 @@ void SMPPPDCSPreferences::load()
 void SMPPPDCSPreferences::save()
 {
 	QStringList list;
-	QListViewItemIterator it(m_ui->accountList);
-	while(it.current()) {
-	
-		QCheckListItem * cli = dynamic_cast<QCheckListItem *>(it.current());
-		if(cli->isOn()) {
-			list.append(m_accountMapCur[cli->text(0)].m_id);
+	QString str, accountStr;
+	QRegExp rex(".*\\(.*\\).*");
+	for ( int i = 0; i < m_ui->accountList->count(); i++ )
+	{
+		if(m_ui->accountList->item(i)->checkState()) {
+			accountStr = m_ui->accountList->item(i)->text();
+			str = rex.lastIndexIn (accountStr);
+			str += "Protocol_";
+			str += accountStr.left ( accountStr.lastIndexOf ("(") - 1 );
+			list.append(str);
 		}
-		
-		++it;
 	}
 	
 	SMPPPDCSConfig::self()->setIgnoredAccounts(list);
@@ -177,7 +171,7 @@ void SMPPPDCSPreferences::save()
 	
 	SMPPPDCSConfig::self()->setServer(m_ui->SMPPPDLocation->server->text());
 	SMPPPDCSConfig::self()->setPort(m_ui->SMPPPDLocation->port->value());
-	SMPPPDCSConfig::self()->setPassword(m_ui->SMPPPDLocation->Password->text());
+	SMPPPDCSConfig::self()->setPassword(m_ui->SMPPPDLocation->password->text());
 	
 	SMPPPDCSConfig::self()->writeConfig();
 	

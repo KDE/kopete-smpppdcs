@@ -22,18 +22,18 @@
 /**
 	@author Heiko Sch&auml;fer <heiko@rangun.de>
 */
-class SMPPPDLocationWidget : private Ui::SMPPPDLocationWidgetBase, public QWidget
+class SMPPPDLocationWidget : public Ui::SMPPPDLocationWidgetUI, public QWidget
 {
-	Q_OBJECT
+		Q_OBJECT
+	public :
+		SMPPPDLocationWidget ( const SMPPPDLocationWidget& );
+		SMPPPDLocationWidget& operator= ( const SMPPPDLocationWidget& );
 
-	SMPPPDLocationWidget(const SMPPPDLocationWidget&);
-	SMPPPDLocationWidget& operator=(const SMPPPDLocationWidget&);
+		explicit SMPPPDLocationWidget ( QWidget* parent = 0, const char* name = 0, Qt::WindowFlags fl = 0 );
+		~SMPPPDLocationWidget();
 
-public:
-    explicit SMPPPDLocationWidget(QWidget* parent = 0, const char* name = 0, WFlags fl = 0);
-    ~SMPPPDLocationWidget();
+		void setServer ( const QString& serv );
 
-    void setServer(const QString& serv);
 };
 
 #endif

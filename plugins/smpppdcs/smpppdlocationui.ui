@@ -1,9 +1,6 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
- <class>SMPPPDLocationWidgetBase</class>
- <widget class="QWidget" name="SMPPPDLocationWidgetBase" >
+ <class>SMPPPDLocationWidgetUI</class>
+ <widget class="QWidget" name="SMPPPDLocationWidgetUI" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -16,10 +13,22 @@
    <string>SMPPPDLocation</string>
   </property>
   <layout class="QGridLayout" >
-   <property name="margin" >
+   <property name="leftMargin" >
     <number>9</number>
    </property>
-   <property name="spacing" >
+   <property name="topMargin" >
+    <number>9</number>
+   </property>
+   <property name="rightMargin" >
+    <number>9</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>9</number>
+   </property>
+   <property name="horizontalSpacing" >
+    <number>6</number>
+   </property>
+   <property name="verticalSpacing" >
     <number>6</number>
    </property>
    <item row="3" column="1" >
@@ -36,9 +45,9 @@
     </spacer>
    </item>
    <item row="2" column="1" >
-    <widget class="KLineEdit" name="Password" >
+    <widget class="KLineEdit" name="password" >
      <property name="cursor" >
-      <cursor>4</cursor>
+      <cursorShape>IBeamCursor</cursorShape>
      </property>
      <property name="toolTip" >
       <string>The password to authenticate with the smpppd</string>
@@ -49,27 +58,36 @@
     </widget>
    </item>
    <item row="2" column="0" >
-    <widget class="QLabel" name="m_passwordLabel" >
+    <widget class="QLabel" name="passwordLabel" >
      <property name="text" >
       <string>Pass&amp;word:</string>
      </property>
      <property name="buddy" >
-      <cstring>Password</cstring>
+      <cstring>password</cstring>
      </property>
     </widget>
    </item>
    <item row="1" column="1" >
     <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
      <property name="spacing" >
       <number>6</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
      </property>
      <item>
       <widget class="KIntNumInput" name="port" >
        <property name="cursor" >
-        <cursor>4</cursor>
+        <cursorShape>IBeamCursor</cursorShape>
        </property>
        <property name="toolTip" >
         <string>The port on which the SMPPPD is running on</string>
@@ -83,7 +101,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="textLabel3" >
+      <widget class="QLabel" name="defaultPortLabel" >
        <property name="text" >
         <string>Default: 3185</string>
        </property>
@@ -108,7 +126,7 @@
     </layout>
    </item>
    <item row="1" column="0" >
-    <widget class="QLabel" name="textLabel2" >
+    <widget class="QLabel" name="portLabel" >
      <property name="text" >
       <string>P&amp;ort:</string>
      </property>
@@ -120,7 +138,7 @@
    <item row="0" column="1" >
     <widget class="KLineEdit" name="server" >
      <property name="cursor" >
-      <cursor>4</cursor>
+      <cursorShape>IBeamCursor</cursorShape>
      </property>
      <property name="toolTip" >
       <string>The server on which the SMPPPD is running</string>
@@ -134,7 +152,7 @@
     </widget>
    </item>
    <item row="0" column="0" >
-    <widget class="QLabel" name="textLabel1" >
+    <widget class="QLabel" name="serverLabel" >
      <property name="text" >
       <string>Ser&amp;ver:</string>
      </property>
@@ -149,18 +167,14 @@
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <customwidgets>
   <customwidget>
-   <class>KLineEdit</class>
-   <extends></extends>
-   <header>klineedit.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
+   <class>KIntNumInput</class>
+   <extends>QWidget</extends>
+   <header>knuminput.h</header>
   </customwidget>
   <customwidget>
-   <class>KIntNumInput</class>
-   <extends></extends>
-   <header>knuminput.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
