@@ -170,7 +170,7 @@ void SMPPPDCSPlugin::disconnectAllowed() {
         } else {
             kDebug(14312) << "Account " << account->protocol()->pluginId() + '_' +account->accountId() << " is an unmanaged account!";
         }
-#endi
+#endif
 		if(!list.contains(account->protocol()->pluginId() + '_' + account->accountId())) {
 			account->disconnect();
 		}

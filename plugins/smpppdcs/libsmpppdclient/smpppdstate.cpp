@@ -14,7 +14,7 @@
 	*************************************************************************
 */
 
-#include <kstreamsocket.h>
+#include <k3streamsocket.h>
 
 #include "smpppdclient.h"
 #include "smpppdstate.h"

@@ -17,7 +17,7 @@
 #include <qregexp.h>
 
 #include <kdebug.h>
-#include <kstreamsocket.h>
+#include <k3streamsocket.h>
 
 #include "smpppdunsettled.h"
 #include "smpppdclient.h"

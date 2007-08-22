@@ -1,10 +1,10 @@
 /*
     smpppdcsprefsimpl.h
- 
+
     Copyright (c) 2004-2006 by Heiko Schaefer        <heiko@rangun.de>
- 
+
     Kopete    (c) 2002-2006 by the Kopete developers <kopete-devel@kde.org>
- 
+
     *************************************************************************
     *                                                                       *
     * This program is free software; you can redistribute it and/or modify  *
@@ -21,7 +21,7 @@
 
 #include <kprogressdialog.h>
 
-#include "ui_smpppdcsprefs.h"
+#include "ui_smpppdcsprefsbase.h"
 
 class SMPPPDCSPlugin;
 class SMPPPDSearcher;
@@ -29,47 +29,49 @@ class SMPPPDSearcher;
 /**
 @author Heiko Sch&auml;fer <heiko@rangun.de>
 */
-class SMPPPDCSPrefs : public Ui::SMPPPDCSPrefsUI 
+class SMPPPDCSPrefs : public QWidget, public Ui::SMPPPDCSPrefsUI
 {
-    Q_OBJECT
+		Q_OBJECT
 
-	
-public:
+	public:
 
-    explicit SMPPPDCSPrefs(QWidget* parent = 0, Qt::WindowFlags f = 0);
-    virtual ~SMPPPDCSPrefs();
+		explicit SMPPPDCSPrefs ( QWidget* parent = 0, Qt::WindowFlags f = 0 );
+		virtual ~SMPPPDCSPrefs();
 
-signals:
-	void foundSMPPPD(bool found);
-	
-protected slots:
-    void enableSMPPPDSettings();
-    void disableSMPPPDSettings();
-    void determineCSType();
-    void smpppdFound(const QString & host);
-    void smpppdNotFound();
-    void scanStarted(uint total);
-    void scanProgress(uint cur);
-    void scanFinished();
-    void cancelScanning();
+	signals:
+		void foundSMPPPD ( bool found );
 
-private:
-    Q_DISABLE_COPY(SMPPPDCSPrefs)
+	protected slots:
+		void enableSMPPPDSettings();
+		void disableSMPPPDSettings();
+		void determineCSType();
+		void smpppdFound ( const QString & host );
+		void smpppdNotFound();
+		void scanStarted ( uint total );
+		void scanProgress ( uint cur );
+		void scanFinished();
+		void cancelScanning();
 
-    SMPPPDCSPlugin  * m_plugin;
-    KProgressDialog * m_scanProgressDlg;
-    SMPPPDSearcher  * m_curSearcher;
+	private:
+//		Q_DISABLE_COPY ( SMPPPDCSPrefs )
+
+		SMPPPDCSPlugin  * m_plugin;
+		KProgressDialog * m_scanProgressDlg;
+		SMPPPDSearcher  * m_curSearcher;
 };
 
-inline void SMPPPDCSPrefs::enableSMPPPDSettings() {
-	smpppdPrefs->setEnabled(true);
+inline void SMPPPDCSPrefs::enableSMPPPDSettings()
+{
+	smpppdPrefs->setEnabled ( true );
 }
 
-inline void SMPPPDCSPrefs::disableSMPPPDSettings() {
-	smpppdPrefs->setEnabled(false);
+inline void SMPPPDCSPrefs::disableSMPPPDSettings()
+{
+	smpppdPrefs->setEnabled ( false );
 }
 
-inline void SMPPPDCSPrefs::scanFinished() {
+inline void SMPPPDCSPrefs::scanFinished()
+{
 	m_scanProgressDlg->hide();
 }
 

@@ -1,10 +1,10 @@
 /*
     smpppdcsiface.h
- 
+
     Copyright (c) 2005-2006 by Heiko Schaefer        <heiko@rangun.de>
- 
+
     Kopete    (c) 2002-2006 by the Kopete developers <kopete-devel@kde.org>
- 
+
     *************************************************************************
     *                                                                       *
     * This program is free software; you can redistribute it and/or modify  *
@@ -17,20 +17,21 @@
 #ifndef SMPPPDCSIFACE_H
 #define SMPPPDCSIFACE_H
 
-#include <dcopobject.h>
+#include <QObject>
 
 /**
  * @author Heiko Sch&auml;fer <heiko@rangun.de>
  */
 
-class SMPPPDCSIFace : virtual public DCOPObject
+class SMPPPDCSIFace : public QObject
 {
-  K_DCOP
+	Q_OBJECT
 
-  k_dcop:
+	Q_CLASSINFO ( "D-Bus Interface", "org.kde.kopete.plugin.smpppdcs" )
 
-    virtual QString detectionMethod() const = 0;
-    virtual bool isOnline() const = 0;
+	public slots:
+		Q_SCRIPTABLE virtual QString detectionMethod() const = 0;
+		Q_SCRIPTABLE virtual bool isOnline() const = 0;
 };
 
 #endif

@@ -19,6 +19,8 @@
 
 #include <qstringlist.h>
 
+namespace KNetwork { class KStreamSocket; }
+
 namespace SMPPPD {
 
 class Client;

@@ -18,7 +18,7 @@
 #ifndef SMPPPDSEARCHER_H
 #define SMPPPDSEARCHER_H
 
-#include <kresolver.h>
+#include <k3resolver.h>
 
 class K3Process;
 

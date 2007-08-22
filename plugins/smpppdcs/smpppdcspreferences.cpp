@@ -43,7 +43,7 @@ SMPPPDCSPreferences::SMPPPDCSPreferences(QWidget * parent, const QStringList& ar
 
 	QVBoxLayout* l = new QVBoxLayout(this);
 	QWidget* w = new QWidget;
-	m_ui = new Ui::SMPPPDCSPrefsUI;
+	m_ui = new SMPPPDCSPrefs;
 	m_ui->setupUi(w);
 	l->addWidget(w);
 

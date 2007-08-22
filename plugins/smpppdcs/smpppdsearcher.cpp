@@ -20,7 +20,7 @@
 #include <k3process.h>
 #include <kdebug.h>
 
-#include "smpppdclient.h"
+#include "libsmpppdclient/smpppdclient.h"
 #include "smpppdsearcher.h"
 
 SMPPPDSearcher::SMPPPDSearcher()
