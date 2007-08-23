@@ -22,6 +22,7 @@
 #include <qtimer.h>
 //Added by qt3to4:
 #include <QByteArray>
+#include <QDBusConnection>
 
 #include <kdebug.h>
 #include <kgenericfactory.h>
@@ -35,16 +36,21 @@
 #include "detectornetstat.h"
 #include "detectorsmpppd.h"
 #include "smpppdcsconfig.h"
+//#include "smpppdcspluginadaptor.h"
 
 typedef KGenericFactory<SMPPPDCSPlugin> SMPPPDCSPluginFactory;
 K_EXPORT_COMPONENT_FACTORY(kopete_smpppdcs, SMPPPDCSPluginFactory("kopete_smpppdcs"))
 
-SMPPPDCSPlugin::SMPPPDCSPlugin(QObject *parent, const char * name, const QStringList& /* args */)
-        : DCOPObject("SMPPPDCSIface"), Kopete::Plugin(SMPPPDCSPluginFactory::componentData(), parent, name),
+SMPPPDCSPlugin::SMPPPDCSPlugin(QObject *parent, const QStringList& /* args */)
+        : Kopete::Plugin(SMPPPDCSPluginFactory::componentData(), parent),
         m_detectorSMPPPD(NULL), m_detectorNetstat(NULL), m_detectorNetworkStatus(NULL), m_timer(NULL),
 m_onlineInquiry(NULL) {
 
     kDebug(14312) ;
+
+    QObject * thisPtr = qobject_cast<SMPPPDCSIFace*>(this);
+//    new SMPPPDCSPluginAdaptor(this);
+    QDBusConnection::sessionBus().registerObject("/MainPlugin", thisPtr, QDBusConnection::ExportScriptableSlots);
 
     m_pluginConnected = false;
 

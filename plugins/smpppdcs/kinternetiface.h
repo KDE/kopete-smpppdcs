@@ -20,29 +20,21 @@
 #ifndef KINTERNETIFACE_H
 #define KINTERNETIFACE_H
 
+#include <QObject>
 
-#include <dcopobject.h>
-
-class KInternetIface : public DCOPObject
+class KInternetIface : public QObject
 {
-    K_DCOP
+		Q_OBJECT
+		Q_CLASSINFO ( "D-Bus Interface", "org.kde.kopete.plugin.smpppdcs /KInternetIface" )
+	public:
 
-public:
+		explicit KInternetIface ( const QString& name ) { QDBusConnection::sessionBus().registerObject(name, this, QDBusConnection::ExportScriptableSlots); }
+	public slots:
+		// query function for susewatcher
+		Q_SCRIPTABLE bool isOnline () { return kinternet && kinternet->get_status () == KInternet::CONNECTED; }
 
-    explicit KInternetIface (const QCString& name) : DCOPObject (name) { }
-
-k_dcop:
-
-    // query function for susewatcher
-    bool isOnline () {
-#ifndef NDEBUG
-	fprintf (stderr, "%s\n", __PRETTY_FUNCTION__);
-#endif
-	return kinternet && kinternet->get_status () == KInternet::CONNECTED;
-    }
-
-private:
-    Q_DISABLE_COPY(KInternetIface)
+	private:
+		Q_DISABLE_COPY ( KInternetIface )
 };
 
 

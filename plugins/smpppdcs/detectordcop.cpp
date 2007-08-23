@@ -14,10 +14,7 @@
     *************************************************************************
 */
 
-#include <dcopclient.h>
 #include <kdebug.h>
-
-#include "kinternetiface_stub.h"
 
 #include "detectordcop.h"
 #include "iconnector.h"

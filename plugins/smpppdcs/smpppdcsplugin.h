@@ -43,9 +43,12 @@ class OnlineInquiry;
  *
  * @author Chris Howells <howells@kde.org>, Heiko Sch&auml;fer <heiko@rangun.de>
  */
-class SMPPPDCSPlugin : public Kopete::Plugin, public IConnector, virtual public SMPPPDCSIFace
+class SMPPPDCSPlugin : public Kopete::Plugin, public IConnector
 {
 		Q_OBJECT
+
+		Q_CLASSINFO ( "D-Bus Interface", "org.kde.kopete.plugin.smpppdcs /MainPlugin" )
+
 		SMPPPDCSPlugin ( const SMPPPDCSPlugin& );
 		SMPPPDCSPlugin& operator= ( const SMPPPDCSPlugin& );
 
@@ -53,20 +56,12 @@ class SMPPPDCSPlugin : public Kopete::Plugin, public IConnector, virtual public 
 		/**
 		 * @brief Creates an <code>SMPPPDCSPlugin</code> instance
 		 */
-		SMPPPDCSPlugin ( QObject *parent, const char *name, const QStringList &args );
+		SMPPPDCSPlugin ( QObject *parent, const QStringList &args );
 
 		/**
 		 * @brief Destroys an <code>SMPPPDCSPlugin</code> instance
 		 */
 		virtual ~SMPPPDCSPlugin();
-
-		// Implementation of DCOP iface
-		/**
-		 * @brief Checks if we are online.
-		 * @note This method is reserved for future use. Do not use at the moment!
-		 * @return <code>true</code> if online, otherwise <code>false</code>
-		 */
-		virtual bool isOnline() const;
 
 		/**
 		 * @brief Sets the status in all allowed accounts.
@@ -76,11 +71,18 @@ class SMPPPDCSPlugin : public Kopete::Plugin, public IConnector, virtual public 
 		 */
 		virtual void setConnectedStatus ( bool newStatus );
 
-		virtual QString detectionMethod() const;
-
 		virtual void aboutToUnload();
 
 	public slots:
+		// Implementation of DBUS iface
+		/**
+		 * @brief Checks if we are online.
+		 * @note This method is reserved for future use. Do not use at the moment!
+		 * @return <code>true</code> if online, otherwise <code>false</code>
+		 */
+		Q_SCRIPTABLE virtual bool isOnline() const;
+		Q_SCRIPTABLE virtual QString detectionMethod() const;
+
 		void smpppdServerChanged ( const QString& server );
 
 	private slots:
@@ -88,12 +90,10 @@ class SMPPPDCSPlugin : public Kopete::Plugin, public IConnector, virtual public 
 		void allPluginsLoaded();
 
 	private:
-
 		void connectAllowed();
 		void disconnectAllowed();
 
 	private:
-
 		Detector      * m_detectorSMPPPD;
 		Detector      * m_detectorNetstat;
 		Detector      * m_detectorNetworkStatus;

@@ -26,11 +26,7 @@ set(kopete_smpppdcs_PART_SRCS
    smpppdcsiface.h
    kinternetiface.h )
 
-#message(FATAL_ERROR "DCOP stuff was removed in kde4, convert it to dbus please")
-
-#kde4_add_dcop_skels(kopete_smpppdcs_PART_SRCS smpppdcsiface.h )
-
-#kde4_add_dcop_stubs(kopete_smpppdcs_PART_SRCS kinternetiface.h )
+qt4_add_dbus_adaptor(kopete_smpppdcs_SRCS org.kde.kopete.plugin.smpppdcs.xml smpppdcsplugin.h SMPPPDCSPlugin)
 
 kde4_add_kcfg_files(kopete_smpppdcs_PART_SRCS smpppdcsconfig.kcfgc )
 
