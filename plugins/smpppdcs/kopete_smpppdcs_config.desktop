@@ -12,6 +12,8 @@ X-KDE-ParentComponents=kopete_smpppdcs
 X-Kopete-Version=1000900
 
 Name=SUSE SMPPPD Connection Status
+Name[pt]=Estado da Ligação do SMPPPD para a SUSE
 Name[sv]=SUSE SMPPPD anslutningsstatus
 Comment=SMPPPDCS Plugin
+Comment[pt]='Plugin' do SMPPPDCS
 Comment[sv]=SMPPPDCS-insticksprogram
