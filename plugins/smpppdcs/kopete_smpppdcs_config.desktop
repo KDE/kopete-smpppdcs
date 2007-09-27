@@ -20,6 +20,7 @@ Name[pt]=Estado da Ligação do SMPPPD para a SUSE
 Name[sv]=SUSE SMPPPD anslutningsstatus
 Comment=SMPPPDCS Plugin
 Comment[bg]=Приставка SMPPPDCS
+Comment[de]=SMPPPDCS-Modul
 Comment[es]=Extensión SMPPPDCS
 Comment[it]=Plugin SMPPPDCS
 Comment[nl]=SMPPPDCS-plugin
