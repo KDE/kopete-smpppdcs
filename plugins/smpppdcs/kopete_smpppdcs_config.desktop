@@ -13,6 +13,7 @@ X-Kopete-Version=1000900
 
 Name=SUSE SMPPPD Connection Status
 Name[cs]=Stav spojení SUSE SMPPPD
+Name[fr]=État de la connexion SMPPPD de SUSE
 Name[hu]=SUSE SMPPPD kapcsolat állapot
 Name[nl]=Verbindingsstatus van SUSE SMPPPD
 Name[pl]=Stan połączenia SMPPPD SUSE
@@ -25,6 +26,7 @@ Name[uk]=Стан з’єднання SMPPPD SUSE
 Name[x-test]=xxSUSE SMPPPD Connection Statusxx
 Comment=SMPPPDCS Plugin
 Comment[cs]=Modul SMPPPDCS
+Comment[fr]=Module externe SMPPPDCS
 Comment[hu]=SMPPPDCS bővítmény
 Comment[nl]=SMPPPDCS-plug-in
 Comment[pl]=Wtyczka SMPPPDCS
