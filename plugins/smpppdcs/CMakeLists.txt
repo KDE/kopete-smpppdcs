@@ -4,8 +4,11 @@ add_subdirectory( unittest )
 
 include_directories( 
 ${KOPETE_INCLUDES}
+${CMAKE_CURRENT_SOURCE_DIR}/libsmpppdclient
 )
 
+add_definitions(-DQT3_SUPPORT -DQT3_SUPPORT_WARNINGS -DKDE3_SUPPORT)
+add_definitions(-DNOKINTERNETDCOP)
 
 ########### next target ###############
 
@@ -22,7 +25,7 @@ set(kopete_smpppdcs_PART_SRCS
    detectordcop.cpp 
    detectorsmpppd.cpp 
    detectornetstat.cpp 
-   detectornetworkstatus.cpp 
+#   detectornetworkstatus.cpp 
    smpppdcsiface.h
    kinternetiface.h )
 
@@ -33,7 +36,7 @@ kde4_add_kcfg_files(kopete_smpppdcs_PART_SRCS smpppdcsconfig.kcfgc )
 kde4_add_plugin(kopete_smpppdcs ${kopete_smpppdcs_PART_SRCS})
 
 
-target_link_libraries(kopete_smpppdcs  ${KDE4_KDECORE_LIBS} kopete )
+target_link_libraries(kopete_smpppdcs  ${KDE4_KDECORE_LIBS} ${QT_QT3SUPPORT_LIBRARY} ${KDE4_KDE3SUPPORT_LIBS} kopete crypto )
 
 install(TARGETS kopete_smpppdcs  DESTINATION ${PLUGIN_INSTALL_DIR})
 
@@ -55,7 +58,7 @@ kde4_add_kcfg_files(kcm_kopete_smpppdcs_PART_SRCS smpppdcsconfig.kcfgc )
 kde4_add_plugin(kcm_kopete_smpppdcs ${kcm_kopete_smpppdcs_PART_SRCS})
 
 
-target_link_libraries(kcm_kopete_smpppdcs kopete ${KDE4_KUTILS_LIBS} ${OPENSSL_LIBRARIES} crypto )
+target_link_libraries(kcm_kopete_smpppdcs kopete ${KDE4_KUTILS_LIBS} ${OPENSSL_LIBRARIES} ${QT_QT3SUPPORT_LIBRARY} ${KDE4_KDE3SUPPORT_LIBS} crypto )
 
 install(TARGETS kcm_kopete_smpppdcs  DESTINATION ${PLUGIN_INSTALL_DIR})
 

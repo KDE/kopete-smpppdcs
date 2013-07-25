@@ -32,6 +32,7 @@ DetectorDCOP::~DetectorDCOP() {}
     \fn DetectorDCOP::getKInternetDCOP()
  */
 QByteArray DetectorDCOP::getKInternetDCOP() const {
+#ifndef NOKINTERNETDCOP
     DCOPClient * client = kapp->dcopClient();
     if(m_kinternetApp.isEmpty() && client && client->isAttached()) {
         // get all registered dcop apps and search for kinternet
@@ -43,6 +44,7 @@ QByteArray DetectorDCOP::getKInternetDCOP() const {
             }
         }
     }
+#endif
 
     return m_kinternetApp;
 }
@@ -54,6 +56,7 @@ DetectorDCOP::KInternetDCOPState DetectorDCOP::getConnectionStatusDCOP() const {
     kDebug(14312) << "Start inquiring " << m_kinternetApp << " via DCOP";
 	
 	
+#ifndef NOKINTERNETDCOP
 	KInternetIface_stub stub = KInternetIface_stub(kapp->dcopClient(), m_kinternetApp, "KInternetIface");
 	
 	bool status = stub.isOnline();
@@ -69,6 +72,7 @@ DetectorDCOP::KInternetDCOPState DetectorDCOP::getConnectionStatusDCOP() const {
 	} else {
 		kWarning(14312) << "DCOP call to " << m_kinternetApp << " failed!";
 	}
+#endif
 
 	return ERROR;
 }

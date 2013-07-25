@@ -59,7 +59,7 @@ m_onlineInquiry(NULL) {
     m_detectorNetstat = new DetectorNetstat(this);
 
     // experimental, not used yet
-    m_detectorNetworkStatus = new DetectorNetworkStatus(this);
+    //m_detectorNetworkStatus = new DetectorNetworkStatus(this);
 
     // we wait for the allPluginsLoaded signal, to connect
     // as early as possible after startup, but not before
@@ -215,6 +215,7 @@ void SMPPPDCSPlugin::aboutToUnload() {
     emit readyForUnload();
 }
 
+#include "smpppdcsiface.moc"
 #include "smpppdcsplugin.moc"
 
 // vim: set noet ts=4 sts=4 sw=4:
