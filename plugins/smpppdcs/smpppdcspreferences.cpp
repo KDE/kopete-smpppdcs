@@ -34,7 +34,7 @@
 #include "smpppdcsconfig.h"
 
 typedef KGenericFactory<SMPPPDCSPreferences> SMPPPDCSPreferencesFactory;
-K_EXPORT_COMPONENT_FACTORY(kcm_kopete_smpppdcs, SMPPPDCSPreferencesFactory("kcm_kopete_smpppdcs"))
+K_EXPORT_COMPONENT_FACTORY(kcm_kopete_smpppdcs, SMPPPDCSPreferencesFactory("kcm_kopete_smpppdcs", "kopete_smpppdcs"))
 
 SMPPPDCSPreferences::SMPPPDCSPreferences(QWidget * parent, const QStringList& args)
  : KCModule(SMPPPDCSPreferencesFactory::componentData(), parent, args), m_ui(NULL) {
