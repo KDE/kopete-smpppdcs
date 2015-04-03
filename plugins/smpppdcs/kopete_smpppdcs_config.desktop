@@ -28,6 +28,7 @@ Name[tr]=SUSE SMPPPD Bağlantı Durumu
 Name[uk]=Стан з’єднання SMPPPD SUSE
 Name[x-test]=xxSUSE SMPPPD Connection Statusxx
 Comment=SMPPPDCS Plugin
+Comment[ast]=Complementu SMPPPDCS
 Comment[bs]=SMPPPDCS dodatak
 Comment[cs]=Modul SMPPPDCS
 Comment[de]=SMPPPDCS-Modul
